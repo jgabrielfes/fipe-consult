@@ -1,0 +1,27 @@
+.header {
+    background-color: antiquewhite;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.links-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.links-div div {
+    border: 1px solid black;
+    margin: 3px;
+    padding: 2px;
+}
+.div-logo {
+    border: black solid 2px;
+    background-color: bisque;
+    padding: 5px;
+    width: max-content;
+}
+
+.nome{
+    font-size: xx-large;
+}
