@@ -11,8 +11,12 @@ function addItemInSelection(parent, text, dataValue) {
 }
 
 selectType.addEventListener('change', async ({ target }) => {
-  selectBrand.innerHTML = ''
-  console.log(selectBrand);
+  $('#search-select-brand').dropdown('clear');
+  selectBrand.innerHTML = '<option value="">Select Brand</option>';
+  $('#search-select-model').dropdown('clear');
+  selectModel.innerHTML = '<option value="">Select Model</option>';
+  $('#search-select-year').dropdown('clear');
+  selectYear.innerHTML = '<option value="">Select Year</option>';
   const data = await fetchVehicle(target.value);
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectBrand, nome, codigo)
@@ -20,8 +24,12 @@ selectType.addEventListener('change', async ({ target }) => {
 });
 
 selectBrand.addEventListener('change', async ({ target }) => {
-  selectModel.innerHTML = '';
-  selectYear.innerHTML = '';
+  $('#search-select-model').dropdown('clear');
+  selectModel.innerHTML = '<option value="">Select Model</option>';
+  $('#search-select-year').dropdown('clear');
+  selectYear.innerHTML = '<option value="">Select Year</option>';
+  if (!target.value) return;
+  console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
   data.modelos.forEach(({ nome, codigo }) => {
     addItemInSelection(selectModel, nome, codigo)
@@ -29,7 +37,9 @@ selectBrand.addEventListener('change', async ({ target }) => {
 });
 
 selectModel.addEventListener('change', async ({ target }) => {
-  selectYear.innerHTML = '';
+  $('#search-select-year').dropdown('clear');
+  selectYear.innerHTML = '<option value="">Select Year</option>';
+  if (!target.value) return;
   const data = await fetchVehicle(selectType.value, selectBrand.value, target.value);
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectYear, nome, codigo)
@@ -37,6 +47,7 @@ selectModel.addEventListener('change', async ({ target }) => {
 });
 
 selectYear.addEventListener('change', async ({ target }) => {
+  if (!target.value) return;
   const data = await fetchVehicle(selectType.value,
     selectBrand.value, selectModel.value, target.value);
   console.log(data);
