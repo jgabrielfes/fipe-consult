@@ -11,9 +11,8 @@ function addItemInSelection(parent, text, dataValue) {
 }
 
 selectType.addEventListener('change', async ({ target }) => {
-  selectBrand.innerHTML = '';
-  selectModel.innerHTML = '';
-  selectYear.innerHTML = '';
+  selectBrand.innerHTML = ''
+  console.log(selectBrand);
   const data = await fetchVehicle(target.value);
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectBrand, nome, codigo)
