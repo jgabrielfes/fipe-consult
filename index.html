@@ -31,12 +31,16 @@
   </div>
 </header>
 <body>
-  <select class="ui search selection dropdown" id="search-select-type">
-    <option value="">Select Type</option>
-    <option value="caminhoes">Caminhões</option>
-    <option value="carros">Carros</option>
-    <option value="motos">Motos</option>
-  </select>
+  <div class="ui fluid search selection dropdown">
+    <input type="hidden" name="type">
+    <i class="dropdown icon"></i>
+    <div class="default text">Select Type</div>
+    <div id="select-type" class="menu">
+      <div class="item" data-value="caminhoes">Caminhões</div>
+      <div class="item" data-value="carros">Carros</div>
+      <div class="item" data-value="motos">Motos</div>
+    </div>
+  </div>
   <div class="ui fluid search selection dropdown">
     <input type="hidden" name="type">
     <i class="dropdown icon"></i>
