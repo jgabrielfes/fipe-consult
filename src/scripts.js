@@ -1,5 +1,14 @@
-<<<<<<< HEAD
 $('.ui.dropdown').dropdown();
-=======
-$('.ui.dropdown').dropdown();
->>>>>>> c03a6fc08f1c6265912426c19996d0dd9a7b9333
+
+window.onload = async () => {
+  const veiculo = await fetchVehicles('carros');
+  const marcas = await fetchBrands(59);
+  const modelos = await fetchModels(5585);
+  const anos = await fetchYears('2012-3');
+
+  // console.log('MARCAS:', marcas);
+  // console.log('VEICULO:', veiculo);
+  // console.log('MODELOS:', modelos);
+  // console.log('ANOS:', anos);
+  console.log('link:', await test('carros', 59, 5585));
+};
