@@ -29,7 +29,7 @@ selectBrand.addEventListener('change', async ({ target }) => {
   $('#search-select-year').dropdown('clear');
   selectYear.innerHTML = '<option value="">Select Year</option>';
   if (!target.value) return;
-  console.log(selectType.value, target.value);
+  // console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
   data.modelos.forEach(({ nome, codigo }) => {
     addItemInSelection(selectModel, nome, codigo);
@@ -59,7 +59,55 @@ selectYear.addEventListener('change', async ({ target }) => {
     target.value
   );
   console.log(data);
+  elementCreate(data)
 });
+
+// AnoModelo: 1998
+// CodigoFipe: "801003-0"
+// Combustivel: "Gasolina"
+// Marca: "AGRALE"
+// MesReferencia: "fevereiro de 2022 "
+// Modelo: "CITY 90"
+// SiglaCombustivel: "G"
+// TipoVeiculo: 2
+// Valor: "R$ 1.898,00"
+
+const carInfoContainer = document.querySelector('#car-info');
+const carPrice = document.querySelector('#car-price');
+const carTable = document.querySelector('#car-table');
+
+function limpaSection () {
+  carInfoContainer.innerHTML = '';
+  carPrice.innerHTML = '';
+  carTable.innerHTML = '';
+  return
+}
+function elementCreate (data) {
+  if (document.querySelector('.modelo-titulo') !== null) {
+    limpaSection();
+  }
+
+  const h1 = document.createElement('h1');
+  h1.className = 'modelo-titulo';
+  h1.innerHTML = `${data.Marca} ${data.Modelo}`;
+  carInfoContainer.appendChild(h1);
+
+  const h2 = document.createElement('h2');
+  h2.className = 'ano-combustivel';
+  h2.innerHTML = `${data.AnoModelo} - ${data.Combustivel}`
+  carInfoContainer.appendChild(h2);
+
+  const test = createTable(data);
+  carInfoContainer.appendChild(test);
+
+  const pFipe = document.createElement('p');
+  pFipe.innerHTML = 'Valor na Tabela FIPE'
+
+  carPrice.appendChild(pFipe);
+  const novoh1 = document.createElement('h1');
+  novoh1.innerHTML = data.Valor;
+  carPrice.appendChild(novoh1); 
+};
 
 window.onload = async () => {
   // console.log(await fetchVehicle('carros'));

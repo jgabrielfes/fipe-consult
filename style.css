@@ -83,6 +83,7 @@
   width: 70%;
   margin: 50px auto;
   border: 1px solid rgb(223, 223, 223);
+  /* display: flex; */
 }
 
 footer {
