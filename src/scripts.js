@@ -18,9 +18,10 @@ selectType.addEventListener('change', async ({ target }) => {
   $('#search-select-year').dropdown('clear');
   selectYear.innerHTML = '<option value="">Select Year</option>';
   const data = await fetchVehicle(target.value);
-  data.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectBrand, nome, codigo);
-  });
+  readingData(selectBrand, data);
+  // data.forEach(({ nome, codigo }) => {
+  //   addItemInSelection(selectBrand, nome, codigo);
+  // });
 });
 
 selectBrand.addEventListener('change', async ({ target }) => {
@@ -31,9 +32,10 @@ selectBrand.addEventListener('change', async ({ target }) => {
   if (!target.value) return;
   console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
-  data.modelos.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectModel, nome, codigo);
-  });
+  readingData(selectModel, data.modelos);
+  // data.modelos.forEach(({ nome, codigo }) => {
+  //   addItemInSelection(selectModel, nome, codigo);
+  // });
 });
 
 selectModel.addEventListener('change', async ({ target }) => {
@@ -45,9 +47,10 @@ selectModel.addEventListener('change', async ({ target }) => {
     selectBrand.value,
     target.value
   );
-  data.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectYear, nome, codigo);
-  });
+  readingData(selectYear, data);
+  // data.forEach(({ nome, codigo }) => {
+  //   addItemInSelection(selectYear, nome, codigo);
+  // });
 });
 
 selectYear.addEventListener('change', async ({ target }) => {
