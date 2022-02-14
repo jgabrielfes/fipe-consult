@@ -59,7 +59,7 @@ selectYear.addEventListener('change', async ({ target }) => {
     selectModel.value,
     target.value
   );
-  // console.log(data);
+  // console.log(data) ;
   elementCreate(data)
 });
 
