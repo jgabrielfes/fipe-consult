@@ -65,17 +65,17 @@ function createTable (data) {
 
     table.appendChild(tHead);
     
-    const linha5 = document.createElement('tr');
+    const linha6 = document.createElement('tr');
 
-    const L5Coluna1 = document.createElement('td');
-    L5Coluna1.innerHTML = 'Ano / Combustivel';
-    const L5Coluna2 = document.createElement('td');
-    L5Coluna2.innerHTML = `${data.AnoModelo} / ${data.Combustivel}`;
+    const L6Coluna1 = document.createElement('td');
+    L6Coluna1.innerHTML = 'Mês Referencia na Tabela FIPE';
+    const L6Coluna2 = document.createElement('td');
+    L6Coluna2.innerHTML = data.MesReferencia;
 
-    linha5.appendChild(L5Coluna1);
-    linha5.appendChild(L5Coluna2);
+    linha6.appendChild(L6Coluna1);
+    linha6.appendChild(L6Coluna2);
 
-    tBody.appendChild(linha5);
+    tBody.appendChild(linha6);
 
     table.appendChild(tHead);
     table.appendChild(tBody);
