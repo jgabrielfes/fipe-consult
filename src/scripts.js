@@ -10,13 +10,15 @@ function addItemInSelection(parent, text, dataValue) {
   parent.appendChild(item);
 }
 
+function clearOptions(...selects) {
+  selects.forEach((select) => {
+    $(select).dropdown('clear');
+    select.innerHTML = '<option value=""></option>';
+  });
+}
+
 selectType.addEventListener('change', async ({ target }) => {
-  $('#search-select-brand').dropdown('clear');
-  selectBrand.innerHTML = '<option value="">Selecione a Marca</option>';
-  $('#search-select-model').dropdown('clear');
-  selectModel.innerHTML = '<option value="">Selecione o Modelo</option>';
-  $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
+  clearOptions(selectBrand, selectModel, selectYear);
   const data = await fetchVehicle(target.value);
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectBrand, nome, codigo);
@@ -24,12 +26,8 @@ selectType.addEventListener('change', async ({ target }) => {
 });
 
 selectBrand.addEventListener('change', async ({ target }) => {
-  $('#search-select-model').dropdown('clear');
-  selectModel.innerHTML = '<option value="">Selecione o Modelo</option>';
-  $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
+  clearOptions(selectModel, selectYear);
   if (!target.value) return;
-  // console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
   data.modelos.forEach(({ nome, codigo }) => {
     addItemInSelection(selectModel, nome, codigo);
@@ -37,15 +35,13 @@ selectBrand.addEventListener('change', async ({ target }) => {
 });
 
 selectModel.addEventListener('change', async ({ target }) => {
-  $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
+  clearOptions(selectYear);
   if (!target.value) return;
   const data = await fetchVehicle(
     selectType.value,
     selectBrand.value,
     target.value
   );
-  // console.log(data)
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectYear, nome, codigo);
   });
@@ -59,7 +55,6 @@ selectYear.addEventListener('change', async ({ target }) => {
     selectModel.value,
     target.value
   );
-  // console.log(data) ;
   elementCreate(data);
 });
 
@@ -116,17 +111,3 @@ async function elementCreate(data) {
 
   await pesquisaImagem(data);
 }
-
-window.onload = async () => {
-  // console.log(await fetchVehicle('carros'));
-};
-
-// AnoModelo: 1998
-// CodigoFipe: "801003-0"
-// Combustivel: "Gasolina"
-// Marca: "AGRALE"
-// MesReferencia: "fevereiro de 2022 "
-// Modelo: "CITY 90"
-// SiglaCombustivel: "G"
-// TipoVeiculo: 2
-// Valor: "R$ 1.898,00"
