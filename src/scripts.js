@@ -45,7 +45,7 @@ selectModel.addEventListener('change', async ({ target }) => {
     selectBrand.value,
     target.value
   );
-  console.log(data)
+  // console.log(data)
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectYear, nome, codigo);
   });
@@ -73,6 +73,15 @@ function limpaSection () {
   carTable.innerHTML = '';
   return
 }
+
+async function pesquisaImagem (data)  {
+  const URL = `https://imsea.herokuapp.com/api/1?q=`
+  // const test = 'https://www.google.com.br/search?q='
+  const resultadoPesquisa = await fetch(`${URL}${data.Marca}${data.Modelo}`)
+  console.log(resultadoPesquisa.json())
+  // resultadoPesquisa.results[0]
+}
+
 function elementCreate (data) {
   if (document.querySelector('.modelo-titulo') !== null) {
     limpaSection();
@@ -94,10 +103,12 @@ function elementCreate (data) {
   const pFipe = document.createElement('p');
   pFipe.innerHTML = 'Valor na Tabela FIPE'
   carPrice.appendChild(pFipe);
-  
+
   const novoh1 = document.createElement('h1');
   novoh1.innerHTML = data.Valor;
-  carPrice.appendChild(novoh1); 
+  carPrice.appendChild(novoh1);
+
+  pesquisaImagem(data);
 };
 
 window.onload = async () => {
