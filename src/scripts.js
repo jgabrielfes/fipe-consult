@@ -12,11 +12,11 @@ function addItemInSelection(parent, text, dataValue) {
 
 selectType.addEventListener('change', async ({ target }) => {
   $('#search-select-brand').dropdown('clear');
-  selectBrand.innerHTML = '<option value="">Select Brand</option>';
+  selectBrand.innerHTML = '<option value="">Selecione a Marca</option>';
   $('#search-select-model').dropdown('clear');
-  selectModel.innerHTML = '<option value="">Select Model</option>';
+  selectModel.innerHTML = '<option value="">Selecione o Modelo</option>';
   $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Select Year</option>';
+  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
   const data = await fetchVehicle(target.value);
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectBrand, nome, codigo);
@@ -25,9 +25,9 @@ selectType.addEventListener('change', async ({ target }) => {
 
 selectBrand.addEventListener('change', async ({ target }) => {
   $('#search-select-model').dropdown('clear');
-  selectModel.innerHTML = '<option value="">Select Model</option>';
+  selectModel.innerHTML = '<option value="">Selecione o Modelo</option>';
   $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Select Year</option>';
+  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
   if (!target.value) return;
   // console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
@@ -38,7 +38,7 @@ selectBrand.addEventListener('change', async ({ target }) => {
 
 selectModel.addEventListener('change', async ({ target }) => {
   $('#search-select-year').dropdown('clear');
-  selectYear.innerHTML = '<option value="">Select Year</option>';
+  selectYear.innerHTML = '<option value="">Selecione o Ano</option>';
   if (!target.value) return;
   const data = await fetchVehicle(
     selectType.value,
@@ -59,30 +59,34 @@ selectYear.addEventListener('change', async ({ target }) => {
     selectModel.value,
     target.value
   );
-  // console.log(data);
-  elementCreate(data)
+  // console.log(data) ;
+  elementCreate(data);
 });
 
 const carInfoContainer = document.querySelector('#car-info');
 const carPrice = document.querySelector('#car-price');
 const carTable = document.querySelector('#car-table');
 
-function limpaSection () {
+function limpaSection() {
   carInfoContainer.innerHTML = '';
   carPrice.innerHTML = '';
   carTable.innerHTML = '';
-  return
+  return;
 }
 
-async function pesquisaImagem (data)  {
-  const URL = `https://imsea.herokuapp.com/api/1?q=`
+async function pesquisaImagem(data) {
+  const URL = `https://imsea.herokuapp.com/api/1?q=`;
   // const test = 'https://www.google.com.br/search?q='
-  const resultadoPesquisa = await fetch(`${URL}${data.Marca}${data.Modelo}`)
-  console.log(resultadoPesquisa.json())
-  // resultadoPesquisa.results[0]
+  const resultadoPesquisa = await fetch(
+    `${URL}${data.Marca}${data.Modelo}${data.AnoModelo}`
+  );
+  const testresultado = await resultadoPesquisa.json();
+
+  const imagem = document.querySelector('#image-test');
+  imagem.src = testresultado.results[0];
 }
 
-function elementCreate (data) {
+async function elementCreate(data) {
   if (document.querySelector('.modelo-titulo') !== null) {
     limpaSection();
   }
@@ -94,28 +98,26 @@ function elementCreate (data) {
 
   const h2 = document.createElement('h2');
   h2.className = 'ano-combustivel';
-  h2.innerHTML = `${data.AnoModelo} - ${data.Combustivel}`
+  h2.innerHTML = `${data.AnoModelo} - ${data.Combustivel}`;
   carInfoContainer.appendChild(h2);
 
   const test = createTable(data);
   carTable.appendChild(test);
 
   const pFipe = document.createElement('p');
-  pFipe.innerHTML = 'Valor na Tabela FIPE'
+  pFipe.innerHTML = 'Valor na Tabela FIPE';
   carPrice.appendChild(pFipe);
 
   const novoh1 = document.createElement('h1');
   novoh1.innerHTML = data.Valor;
   carPrice.appendChild(novoh1);
 
-  pesquisaImagem(data);
-};
+  await pesquisaImagem(data);
+}
 
 window.onload = async () => {
   // console.log(await fetchVehicle('carros'));
 };
-
-
 
 // AnoModelo: 1998
 // CodigoFipe: "801003-0"
