@@ -80,10 +80,12 @@ async function pesquisaImagem(data) {
   const resultadoPesquisa = await fetch(
     `${URL}${data.Marca}${data.Modelo}${data.AnoModelo}`
   );
+  const noAvailable = 'https://car-info.com/build/images/no_img.jpg?v2.2"';
   const testresultado = await resultadoPesquisa.json();
-
+  console.log(testresultado);
   const imagem = document.querySelector('#image-test');
-  imagem.src = testresultado.results[0];
+  imagem.src =
+    testresultado.results.length === 0 ? noAvailable : testresultado.results[0];
 }
 
 async function elementCreate(data) {
