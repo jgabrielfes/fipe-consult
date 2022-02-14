@@ -19,9 +19,6 @@ selectType.addEventListener('change', async ({ target }) => {
   selectYear.innerHTML = '<option value="">Select Year</option>';
   const data = await fetchVehicle(target.value);
   readingData(selectBrand, data);
-  // data.forEach(({ nome, codigo }) => {
-  //   addItemInSelection(selectBrand, nome, codigo);
-  // });
 });
 
 selectBrand.addEventListener('change', async ({ target }) => {
@@ -33,9 +30,6 @@ selectBrand.addEventListener('change', async ({ target }) => {
   console.log(selectType.value, target.value);
   const data = await fetchVehicle(selectType.value, target.value);
   readingData(selectModel, data.modelos);
-  // data.modelos.forEach(({ nome, codigo }) => {
-  //   addItemInSelection(selectModel, nome, codigo);
-  // });
 });
 
 selectModel.addEventListener('change', async ({ target }) => {
@@ -48,9 +42,6 @@ selectModel.addEventListener('change', async ({ target }) => {
     target.value
   );
   readingData(selectYear, data);
-  // data.forEach(({ nome, codigo }) => {
-  //   addItemInSelection(selectYear, nome, codigo);
-  // });
 });
 
 selectYear.addEventListener('change', async ({ target }) => {
@@ -61,9 +52,4 @@ selectYear.addEventListener('change', async ({ target }) => {
     selectModel.value,
     target.value
   );
-  console.log(data);
 });
-
-window.onload = async () => {
-  // console.log(await fetchVehicle('carros'));
-};
