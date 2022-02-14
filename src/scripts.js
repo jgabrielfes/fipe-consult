@@ -42,7 +42,6 @@ selectModel.addEventListener('change', async ({ target }) => {
     selectBrand.value,
     target.value
   );
-  // console.log(data)
   data.forEach(({ nome, codigo }) => {
     addItemInSelection(selectYear, nome, codigo);
   });
@@ -56,7 +55,6 @@ selectYear.addEventListener('change', async ({ target }) => {
     selectModel.value,
     target.value
   );
-  // console.log(data) ;
   elementCreate(data);
 });
 
@@ -113,17 +111,3 @@ async function elementCreate(data) {
 
   await pesquisaImagem(data);
 }
-
-window.onload = async () => {
-  // console.log(await fetchVehicle('carros'));
-};
-
-// AnoModelo: 1998
-// CodigoFipe: "801003-0"
-// Combustivel: "Gasolina"
-// Marca: "AGRALE"
-// MesReferencia: "fevereiro de 2022 "
-// Modelo: "CITY 90"
-// SiglaCombustivel: "G"
-// TipoVeiculo: 2
-// Valor: "R$ 1.898,00"
