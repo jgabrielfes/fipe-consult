@@ -13,77 +13,67 @@
   <script src="src/fetchfipe.js" defer></script>
   <script src="src/functions.js" defer></script>
   <script src="src/scripts.js" defer></script>
+  <script src="src/table.js" defer></script>
   <title>Consulta FIPE</title>
 </head>
 
 <body>
-  <header class="header">
-    <div class="div-logo">
-      <img src="https://www.fipe.org.br/Content/img/logo_fipe.png" alt="">
-    </div>
+  <div class="container">
+    <header class="header">
+      <div class="div-logo">
+        <h1>TABELA </h1>
+        <img src="https://www.fipe.org.br/Content/img/logo_fipe.png" alt="">
+      </div>
 
-    <h1>TABELA FIPE</h1>
+    </header>
+    <section id="search-container">
+      <select class="ui search selection dropdown" id="search-select-type">
+        <option value="">Selecione o Tipo</option>
+        <option value="carros">Carros</option>
+        <option value="motos">Motos</option>
+        <option value="caminhoes">Caminhões</option>
+      </select>
+      <select class="ui search selection dropdown" id="search-select-brand">
+        <option value="">Selecione a Marca</option>
+      </select>
+      <select class="ui search selection dropdown" id="search-select-model">
+        <option value="">Selecione o Modelo</option>
+      </select>
+      <select class="ui search selection dropdown" id="search-select-year">
+        <option value="">Selecione o Ano</option>
+      </select>
+    </section>
 
-    <div class="links-div">
-      <a href="#">
-        Carros
-      </a>
-      <a href="#">
-        Motos
-      </a>
-      <a href="#">
-        Caminhões
-      </a>
-    </div>
-  </header>
+    <section id="apresentation-container">
+      <section id="car-info-container">
 
-  <section id="apresentation-container">
-    <div>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Volkswagen_Logo_till_1995.svg/800px-Volkswagen_Logo_till_1995.svg.png"
-        alt="">
-    </div>
-    <div>
-      <img src="http://blog.grupojorlan.com.br/wp-content/uploads/2020/09/Chevrolet-logo-5-300x167.jpg" alt="">
-    </div>
-    <div>
-      <img
-        src="https://img2.gratispng.com/20180426/eee/kisspng-yamaha-motor-company-yamaha-corporation-logo-motor-5ae1842f31c249.1205591915247288792038.jpg"
-        alt="">
-    </div>
-    <div>
-      <img src="https://logodownload.org/wp-content/uploads/2014/05/fiat-logo-21.png" alt="">
-    </div>
-    <div>
-      <img src="https://logodownload.org/wp-content/uploads/2014/09/citroen-logo-2.png" alt="">
-    </div>
-  </section>
+        <div class="car-image">
+          <img id="image-test" src="https://zambra.com.br/wp-content/uploads/2021/07/Hot-Wheels-logo.png" alt="">
+        </div>
+        <div class="car-info-body">
 
-  <section id="search-container">
-    <select class="ui search selection dropdown" id="search-select-type">
-      <option value="">Select Type</option>
-      <option value="carros">Carros</option>
-      <option value="motos">Motos</option>
-      <option value="caminhoes">Caminhões</option>
-    </select>
-    <select class="ui search selection dropdown" id="search-select-brand">
-      <option value="">Select Brand</option>
-    </select>
-    <select class="ui search selection dropdown" id="search-select-model">
-      <option value="">Select Model</option>
-    </select>
-    <select class="ui search selection dropdown" id="search-select-year">
-      <option value="">Select Year</option>
-    </select>
-  </section>
+          <section id="car-info">
+          </section>
 
-  <section id="car-info-container">
+          <section id="car-table">
+          </section>
 
-  </section>
+          <section id="car-price">
+          </section>
+        </div>
 
-  <footer>
-    Site desenvolvido por Mateus Passo, José Carlos, Allan Eric e João Gabriel utilizando...
-  </footer>
+
+      </section>
+
+    </section>
+
+
+
+
+    <footer>
+      Site desenvolvido por Mateus Passo, José Carlos, Allan Eric e João Gabriel utilizando...
+    </footer>
+  </div>
   <script>$('.ui.dropdown').dropdown()</script>
 </body>
 
