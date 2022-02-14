@@ -43,7 +43,6 @@
   padding: 16px;
   display: flex;
   flex-wrap: wrap;
-
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -106,4 +105,10 @@ footer {
 
 #car-price p {
   font-size: large;
+}
+
+@media only screen and (max-width: 600px) {
+  #car-info-container {
+    flex-direction: column;
+  }
 }
