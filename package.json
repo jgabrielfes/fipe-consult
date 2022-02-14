@@ -1,0 +1,23 @@
+{
+  "name": "fipe-consult",
+  "version": "1.0.0",
+  "description": "Este projeto tem a finalidade de buscar os valores dos carros na tabela FIPE.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgabrielfes/fipe-consult.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgabrielfes/fipe-consult/issues"
+  },
+  "homepage": "https://github.com/jgabrielfes/fipe-consult#readme",
+  "dependencies": {
+    "jest": "^27.5.1"
+  }
+}

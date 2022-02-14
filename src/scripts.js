@@ -20,18 +20,14 @@ function clearOptions(...selects) {
 selectType.addEventListener('change', async ({ target }) => {
   clearOptions(selectBrand, selectModel, selectYear);
   const data = await fetchVehicle(target.value);
-  data.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectBrand, nome, codigo);
-  });
+  readingData(selectBrand, data);
 });
 
 selectBrand.addEventListener('change', async ({ target }) => {
   clearOptions(selectModel, selectYear);
   if (!target.value) return;
   const data = await fetchVehicle(selectType.value, target.value);
-  data.modelos.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectModel, nome, codigo);
-  });
+  readingData(selectModel, data.modelos);
 });
 
 selectModel.addEventListener('change', async ({ target }) => {
@@ -42,9 +38,7 @@ selectModel.addEventListener('change', async ({ target }) => {
     selectBrand.value,
     target.value
   );
-  data.forEach(({ nome, codigo }) => {
-    addItemInSelection(selectYear, nome, codigo);
-  });
+  readingData(selectYear, data);
 });
 
 selectYear.addEventListener('change', async ({ target }) => {
@@ -71,7 +65,6 @@ function limpaSection() {
 
 async function pesquisaImagem(data) {
   const URL = `https://imsea.herokuapp.com/api/1?q=`;
-  // const test = 'https://www.google.com.br/search?q='
   const resultadoPesquisa = await fetch(
     `${URL}${data.Marca}${data.Modelo}${data.AnoModelo}`
   );
@@ -111,3 +104,4 @@ async function elementCreate(data) {
 
   await pesquisaImagem(data);
 }
+
