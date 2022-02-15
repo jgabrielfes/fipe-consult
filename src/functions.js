@@ -4,5 +4,3 @@ const readingData = (select, data) => {
     addItemInSelection(select, nome, codigo);
   });
 };
-
-module.exports = readingData;

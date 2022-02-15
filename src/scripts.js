@@ -1,56 +1,41 @@
-const selectType = document.getElementById('search-select-type');
-const selectBrand = document.getElementById('search-select-brand');
-const selectModel = document.getElementById('search-select-model');
-const selectYear = document.getElementById('search-select-year');
+const selects = ['type', 'brand', 'model', 'year'];
 
-function addItemInSelection(parent, text, dataValue) {
+function addItemInSelection(parent, text, value) {
   const item = document.createElement('option');
   item.innerText = text;
-  item.value = dataValue;
+  item.value = value;
   parent.appendChild(item);
 }
 
-function clearOptions(...selects) {
-  selects.forEach((select) => {
-    $(select).dropdown('clear');
-    select.innerHTML = '<option value=""></option>';
-  });
+async function onChangeSelect({ target }) {
+  if (target.value === '') return false;
+  const currentIndex = selects.indexOf(target.id.split('-')[2]);
+  const nextSelect = document.getElementById(`search-select-${selects[currentIndex + 1]}`);
+  const searchFetch = [];
+  if (nextSelect) nextSelect.parentElement.classList.add('loading');
+
+  selects.forEach((selectId, index) => {
+    const select = document.getElementById(`search-select-${selectId}`)
+    if (index <= currentIndex) {
+      searchFetch.push(select.value);
+    } else {
+      $(select).dropdown('clear');
+      select.innerHTML = '<option value=""></option>';
+    }
+  })
+
+  let data = await fetchVehicle(...searchFetch);
+  if (nextSelect) {
+    nextSelect.parentElement.classList.remove('loading');
+    data = data.modelos || data;
+    data.forEach(({ nome, codigo }) => addItemInSelection(nextSelect, nome, codigo));
+  } else {
+    elementCreate(data);
+  }
 }
 
-selectType.addEventListener('change', async ({ target }) => {
-  clearOptions(selectBrand, selectModel, selectYear);
-  const data = await fetchVehicle(target.value);
-  readingData(selectBrand, data);
-});
-
-selectBrand.addEventListener('change', async ({ target }) => {
-  clearOptions(selectModel, selectYear);
-  if (!target.value) return;
-  const data = await fetchVehicle(selectType.value, target.value);
-  readingData(selectModel, data.modelos);
-});
-
-selectModel.addEventListener('change', async ({ target }) => {
-  clearOptions(selectYear);
-  if (!target.value) return;
-  const data = await fetchVehicle(
-    selectType.value,
-    selectBrand.value,
-    target.value
-  );
-  readingData(selectYear, data);
-});
-
-selectYear.addEventListener('change', async ({ target }) => {
-  if (!target.value) return;
-  const data = await fetchVehicle(
-    selectType.value,
-    selectBrand.value,
-    selectModel.value,
-    target.value
-  );
-  elementCreate(data);
-});
+selects.forEach((selectId) => document.getElementById(`search-select-${selectId}`)
+  .addEventListener('change', onChangeSelect));
 
 const carInfoContainer = document.querySelector('#car-info');
 const carPrice = document.querySelector('#car-price');
@@ -104,4 +89,3 @@ async function elementCreate(data) {
 
   await pesquisaImagem(data);
 }
-
