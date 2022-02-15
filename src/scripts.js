@@ -7,8 +7,7 @@ function addItemInSelection(parent, text, value) {
   parent.appendChild(item);
 }
 
-async function onChangeSelect({ target }) {
-  if (target.value === '') return false;
+async function onChangeSelect(target) {
   const currentIndex = selects.indexOf(target.id.split('-')[2]);
   const nextSelect = document.getElementById(`search-select-${selects[currentIndex + 1]}`);
   const searchFetch = [];
@@ -35,7 +34,7 @@ async function onChangeSelect({ target }) {
 }
 
 selects.forEach((selectId) => document.getElementById(`search-select-${selectId}`)
-  .addEventListener('change', onChangeSelect));
+  .addEventListener('change', ({ target }) => target.value !== '' && onChangeSelect(target)));
 
 const carInfoContainer = document.querySelector('#car-info');
 const carPrice = document.querySelector('#car-price');
